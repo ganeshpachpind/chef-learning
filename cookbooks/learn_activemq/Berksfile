@@ -2,3 +2,5 @@ source 'https://supermarket.chef.io'
 
 metadata
 cookbook 'java', '~> 1.42.0'
+cookbook 'activemq', '~> 3.0.0'
+cookbook 'firewalld', '~> 1.1.1'
