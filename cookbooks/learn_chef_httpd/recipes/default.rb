@@ -13,4 +13,7 @@ end
 
 template '/var/www/html/index.html' do
   source 'index.html.erb'
+  mode '0644'
+  owner 'ec2-user'
+  group 'ec2-user'
 end
