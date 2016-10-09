@@ -5,6 +5,7 @@ license 'all_rights'
 description 'Installs/Configures learn_activemq'
 long_description 'Installs/Configures learn_activemq'
 version '0.1.0'
+depends "java"
 
 # If you upload to Supermarket you should set this so your cookbook
 # gets a `View Issues` link
