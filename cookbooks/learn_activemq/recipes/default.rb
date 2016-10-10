@@ -12,7 +12,29 @@ firewalld_port '61616/tcp'
 # admin port
 firewalld_port '8161/tcp'
 
-node.force_default['activemq']['mirror'] = 'http://archive.apache.org/dist'
-node.force_default['activemq']['version'] = '5.7.0'
+remote_file "/opt/apache-activemq-5.9.0-bin.tar.gz" do
+  source "http://archive.apache.org/dist/activemq/apache-activemq/5.9.0/apache-activemq-5.9.0-bin.tar.gz"
+  action :create
+end
 
-include_recipe 'activemq'
+package 'tar'
+
+execute 'activemq_tar' do
+  command 'tar zxvf apache-activemq-5.9.0-bin.tar.gz'
+  cwd '/opt/'
+end
+
+link '/etc/init.d/activemq' do
+  to "/opt/apache-activemq-5.9.0/bin/linux-x86-64/activemq"
+end
+
+file "/opt/apache-activemq-5.9.0/bin/linux-x86-64/activemq" do
+  owner 'ec2-user'
+  group 'ec2-user'
+  mode '0755'
+end
+
+service 'activemq' do
+  supports restart: true, status: true
+  action [:enable, :start]
+end
